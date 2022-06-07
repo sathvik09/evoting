@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 
 const NewPoll = (props) => {
+
   const candidateName1 = useRef();
   const candidateName2 = useRef();
 
@@ -11,6 +12,7 @@ const NewPoll = (props) => {
   const promptRef = useRef();
 
   const [disableButton, changeDisable] = useState(false);
+  const [fields,addField] = useState([]);
 
   const sendToBlockChain = async () => {
     changeDisable(true);
