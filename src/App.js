@@ -61,7 +61,6 @@ export default function App() {
         <Home changeCandidates={changeCandidatesFunction} />
         </Route>
         <Route exact path='/register'>
-        <NavBar />
           <Register />
         </Route>
         <Route exact path='/PollingStation'>

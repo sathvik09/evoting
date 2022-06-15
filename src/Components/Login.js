@@ -27,8 +27,8 @@ const Login = props =>{
         .then(()=>window.location.replace(window.location.href + "home"))
         .catch(err=>{
           switch(err.code){
-            case "auth/invalid-email": alert("INVALID_EMAIL")
-            case "auth/invalid-password": alert("INVALID_PASSWORD")
+            case "auth/invalid-email": alert("INVALID_EMAIL"); break;
+            case "auth/invalid-password": alert("INVALID_PASSWORD"); break;
           }
         })
 
