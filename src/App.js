@@ -12,6 +12,7 @@ import Home from "./Components/Home";
 import NewPoll from "./Components/NewPoll";
 import PollingStation from "./Components/PollingStation";
 import Register from "./Components/Register";
+import NavBar from './Components/NavBar';
 
 // images
 import BlockVoteLogo from "./assets/evote1.jpg";
@@ -49,50 +50,26 @@ export default function App() {
     window.location.replace("PollingStation");
   };
 
-  const signOut = ()=>{
-    firebase.auth().signOut()
-    .then(()=>window.location.replace("/"))
-  }
-
   return (
     <Router>
-      <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
-        <Container>
-          <Navbar.Brand href='/'>
-            <img src={BlockVoteLogo} style = {{width:90}}></img>
-          </Navbar.Brand>
-          <Navbar.Text style={{fontSize:'40px', marginTop:'10px', fontFamily:'Indie Flower', fontWeight:800, color:"#1F58BF"}}>
-            {'BlockVote'}
-          </Navbar.Text>
-          <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-          <Navbar.Collapse id='responsive-navbar-nav'>
-            <Nav className='mx-auto'></Nav>
-            <Nav>
-              <Nav.Link href='/NewPoll'>New Poll</Nav.Link>
-              <Nav.Link onClick={window.accountId === "" ? login : logout}>
-                {window.accountId === "" ? "LogintoNear" : window.accountId}
-              </Nav.Link>
-              <Nav.Link onClick={signOut}>
-                SignOut
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
       <Switch>
         <Route exact path='/'>
         <Login /> 
         </Route>
         <Route exact path='/home'>
+        <NavBar />
         <Home changeCandidates={changeCandidatesFunction} />
         </Route>
         <Route exact path='/register'>
+        <NavBar />
           <Register />
         </Route>
         <Route exact path='/PollingStation'>
+        <NavBar />
           <PollingStation />
         </Route>
         <Route exact path='/NewPoll'>
+        <NavBar />
           <NewPoll />
         </Route>
       </Switch>
