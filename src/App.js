@@ -46,7 +46,7 @@ export default function App() {
     localStorage.setItem("Candidate1", namePair[0]);
     localStorage.setItem("Candidate2", namePair[1]);
     localStorage.setItem("prompt", prompt);
-    window.location.replace(window.location.href + "PollingStation");
+    window.location.replace("PollingStation");
   };
 
   const signOut = ()=>{
