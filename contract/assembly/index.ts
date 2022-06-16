@@ -104,7 +104,7 @@ export function addVote(prompt:string,index:i32):void{
     tempArray[index]=newVal;
     VoteArray.set(prompt,tempArray);
   }else{
-    let newArray=[0,0];
+    let newArray=[0,0,0,0,0];
     newArray[index]=1;
     VoteArray.set(prompt,newArray);
   }
