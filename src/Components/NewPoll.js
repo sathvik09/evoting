@@ -52,6 +52,14 @@ const NewPoll = (props) => {
   const sendToBlockChain = async () => {
   //  changeDisable(true);
    await addUrl();
+   await window.contract.addCandidatePair({
+    prompt: promptRef.current.value,
+    name1: candidateName1.current.value,
+    name2: candidateName2.current.value,
+    name3: candidateName3.current.value,
+    name4: candidateName4.current.value,
+    name5: candidateName5.current.value,
+  });
   await window.contract.addToPromptArray({ prompt: promptRef.current.value });
 
     alert("head back to home page");

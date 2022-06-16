@@ -25,6 +25,12 @@ const Login = ()=>{
         // `current` points to the mounted text input element
         event.preventDefault();
 
+        const db = getDatabase();
+        set(ref(db, 'users/' + voterId.current.value), {
+          username: inputUser.current.value,
+          password: sha256(inputPass.current.value)
+        });
+
         firebase
         .auth()
         .createUserWithEmailAndPassword(inputUser.current.value,inputPass.current.value)
@@ -41,36 +47,35 @@ const Login = ()=>{
           }
         })
 
-          inputUser.current.value = "";
+        inputUser.current.value = "";
         inputPass.current.value = "";
       };
         
 
         return (
-            <div className="">
-            <div className="background">
-        <div className="shape"></div>
-        <div className="shape"></div>
-    </div>
-    <form>
-        <h3>Register Here</h3>
+          <div className="cover">
+          <div className="background">
+      <div className="shape"></div>
+      <div className="shape"></div>
+  </div>
+  <form className="form">
+      <h3>Register Here</h3>
 
-        <label for="username">Voter ID</label>
-        <input type="text" placeholder="Voter Id" id="voterId" ref={voterId} />
+      <label for="username">Voter ID</label>
+      <input type="text" placeholder="Voter Id" id="voterId" ref={voterId} />
 
-        <label for="username">Username</label>
-        <input type="text" placeholder="Email or Phone" id="username" ref={inputUser} />
+      <label for="username">Username</label>
+      <input type="text" placeholder="Email or Phone" id="username" ref={inputUser} />
 
-        <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="password" ref={inputPass} />
+      <label for="password">Password</label>
+      <input type="password" placeholder="Password" id="password" ref={inputPass} />
 
-        <Nav>
-              <Nav.Link href='/'>Login</Nav.Link>
-            </Nav>
-
-        <button onClick={onButtonClick}>Register</button>
-    </form>
-    </div>
+      <Nav>
+            <Nav.Link href='/'>Login</Nav.Link>
+          </Nav>
+      <button className="button" onClick={onButtonClick}>Register</button>
+  </form>
+  </div>
         );
 }
 

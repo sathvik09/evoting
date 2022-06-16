@@ -51,7 +51,7 @@ export function getVotes(prompt:string):i32[]{
   }else{
 
     logging.log('prompt not found for this vote')
-    return[0,0]
+    return[0,0,0,0,0]
   }
 }
 
@@ -74,8 +74,8 @@ export function addUrl(name:string, url:string):void{
   logging.log('added url for '+ name);
 }
 
-export function addCandidatePair(prompt:string,name1:string,name2:string):void{
-  CandidatePair.set(prompt,[name1,name2])
+export function addCandidatePair(prompt:string,name1:string,name2:string,name3:string,name4:string,name5:string):void{
+  CandidatePair.set(prompt,[name1,name2,name3,name4,name5])
 }
 
 export function addToPromptArray(prompt:string):void{
