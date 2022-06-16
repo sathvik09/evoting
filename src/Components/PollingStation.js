@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef} from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import LoadingCircles from "../assets/loadingcircles.svg";
 import CandidateCard from "./CandidateCard";
@@ -11,8 +11,9 @@ import 'firebase/compat/auth';
 import 'firebase/compat/messaging';
 import 'firebase/compat/firestore';
 import firebase from '../../util/firebase'
-import { getDatabase } from "firebase/database";
-import { ref as sRef } from 'firebase/storage';
+import { sha256 } from "js-sha256";
+import { async } from "regenerator-runtime";
+import { getDatabase, ref, child, push, update, onValue } from "firebase/database";
 
 const PollingStation = ({voterId}) => {
   const [candidate1URL, changeCandidate1Url] = useState(LoadingCircles);
@@ -30,7 +31,31 @@ const PollingStation = ({voterId}) => {
   const [candidate4Votes, changeVote4] = useState("--");
   const [candidate5Votes, changeVote5] = useState("--");
 
+  const inputVal = useRef("");
   const [prompt, changePrompt] = useState("--");
+  
+
+function updateVoteStatus(username,password) {
+  const db = getDatabase();
+
+  // A post entry.
+  const postData = {
+    username: username,
+    password: password,
+    hasVoted: true,
+  };
+
+  // Get a key for a new Post.
+  let v = localStorage.getItem("voterId");
+
+  // Write the new post's data simultaneously in the posts list and the user's post list.
+  const updates = {};
+  updates['/users/' + v] = postData;
+
+  return update(ref(db), updates);
+}
+
+
 
   useEffect(() => {
     const getInfo = async () => {
@@ -91,35 +116,57 @@ const PollingStation = ({voterId}) => {
 
   const addVote = async (index) => {
    // changeButtonStatus(true);
+   
 
-    const db = getDatabase();    
-    await window.contract.addVote({
-      prompt: localStorage.getItem("prompt"),
-      index: index,
-    });
-
-    await window.contract.recordUser({
-      prompt: localStorage.getItem("prompt"),
-      user: window.accountId,
-    });
-
-    let voteCount = await window.contract.getVotes({
-      prompt: localStorage.getItem("prompt"),
-    });
-    changeVote1(voteCount[0]);
-    changeVote2(voteCount[1]);
-    changeVote3(voteCount[2]);
-    changeVote4(voteCount[3]);
-    changeVote5(voteCount[4]);
-    
+const db = getDatabase();
+const starCountRef = ref(db, 'users/' + localStorage.getItem("voterId"));
+onValue(starCountRef, (snapshot) => {
+  const data = snapshot.val();
+  console.log(data.password);
+  const val = inputVal.current.value;
+  if(data.hasVoted){
     changeResultsDisplay(true);
-    localStorage.setItem("voterId",true);
+    changeButtonStatus(true);
+    alert("you have voted already for this year");
+  }
+  else{
+    const a = async ()=>{
+      if(data.password == sha256(val)){
+      console.log("adgadfg");
+      await window.contract.addVote({
+        prompt: localStorage.getItem("prompt"),
+        index: index,
+      });
+  
+      await window.contract.recordUser({
+        prompt: localStorage.getItem("prompt"),
+        user: window.accountId,
+      });
+  
+      let voteCount = await window.contract.getVotes({
+        prompt: localStorage.getItem("prompt"),
+      });
+      changeVote1(voteCount[0]);
+      changeVote2(voteCount[1]);
+      changeVote3(voteCount[2]);
+      changeVote4(voteCount[3]);
+      changeVote5(voteCount[4]);
+      
+    }
+  }
+  a();
+  
+  updateVoteStatus(data.username,data.password);
+  changeResultsDisplay(true);
+}
+});
 
   };
 
   return (
     <Container>
       <Row>
+       <input placeholder="Enter password before voting" ref={inputVal} />
        <CandidateCard candidateURL={candidate1URL} showresults={showresults} candidateVotes={candidate1Votes} buttonStatus={buttonStatus} addVote={addVote} index={0} />
        <CandidateCard candidateURL={candidate2URL} showresults={showresults} candidateVotes={candidate2Votes} buttonStatus={buttonStatus} addVote={addVote} index={1} />
        <CandidateCard candidateURL={candidate3URL} showresults={showresults} candidateVotes={candidate3Votes} buttonStatus={buttonStatus} addVote={addVote} index={2} />

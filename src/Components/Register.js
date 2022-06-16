@@ -25,7 +25,7 @@ const Register = (props)=>{
     const onButtonClick = event => {
         // `current` points to the mounted text input element
         event.preventDefault();
-        
+        localStorage.setItem("voterId",voterId.current.value);
         const db = getDatabase();
         set(ref(db, 'users/' + voterId.current.value), {
           username: inputUser.current.value,
