@@ -37,7 +37,7 @@ const NavBar = ()=>{
                 {window.accountId === "" ? "LogintoNear" : window.accountId}
               </Nav.Link>
               <Nav.Link onClick={signOut}>
-                SignOut
+                SignOut {window.accountId}
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
