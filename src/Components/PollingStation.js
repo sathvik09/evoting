@@ -50,6 +50,7 @@ const PollingStation = (props) => {
   }, []);
 
   const addVote = async (index) => {
+    console.log(prompt("hello",""));
     changeButtonStatus(true);
     await window.contract.addVote({
       prompt: localStorage.getItem("prompt"),

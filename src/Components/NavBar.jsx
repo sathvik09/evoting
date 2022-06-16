@@ -16,9 +16,11 @@ import 'firebase/compat/firestore';
 
 const NavBar = ()=>{
     const signOut = ()=>{
+        prompt("over","out")
         firebase.auth().signOut()
         .then(()=>window.location.replace("/"))
       }
+
     return(
     <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
         <Container>
