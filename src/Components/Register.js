@@ -17,7 +17,7 @@ import "../css/Login.css"
 import firebase from '../../util/firebase'
 import { getDatabase, ref, set } from "firebase/database";
 
-const Login = ()=>{
+const Register = ()=>{
     const inputUser = useRef("");
     const inputPass = useRef("");
     const voterId = useRef("");
@@ -74,4 +74,4 @@ const Login = ()=>{
         );
 }
 
-export default Login;
+export default Register;
