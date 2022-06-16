@@ -43,7 +43,7 @@ const Login = props =>{
         <div className="shape"></div>
         <div className="shape"></div>
     </div>
-    <form>
+    <form className="form">
         <h3>Login Here</h3>
 
         <label for="username">Voter ID</label>
@@ -58,7 +58,7 @@ const Login = props =>{
         <Nav>
               <Nav.Link href='/register'>Register</Nav.Link>
             </Nav>
-        <button onClick={onButtonClick}>Log In</button>
+        <button className="button" onClick={onButtonClick}>Log In</button>
     </form>
     </div>
         );

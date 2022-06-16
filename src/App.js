@@ -46,6 +46,9 @@ export default function App() {
     let namePair = await window.contract.getCandidatePair({ prompt: prompt });
     localStorage.setItem("Candidate1", namePair[0]);
     localStorage.setItem("Candidate2", namePair[1]);
+    localStorage.setItem("Candidate3", namePair[2]);
+    localStorage.setItem("Candidate4", namePair[3]);
+    localStorage.setItem("Candidate5", namePair[4]);
     localStorage.setItem("prompt", prompt);
     window.location.replace("PollingStation");
   };

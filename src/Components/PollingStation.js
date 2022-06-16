@@ -5,10 +5,19 @@ import LoadingCircles from "../assets/loadingcircles.svg";
 const PollingStation = (props) => {
   const [candidate1URL, changeCandidate1Url] = useState(LoadingCircles);
   const [candidate2URL, changeCandidate2Url] = useState(LoadingCircles);
+  const [candidate3URL, changeCandidate3Url] = useState(LoadingCircles);
+  const [candidate4URL, changeCandidate4Url] = useState(LoadingCircles);
+  const [candidate5URL, changeCandidate5Url] = useState(LoadingCircles);
+
   const [showresults, changeResultsDisplay] = useState(false);
   const [buttonStatus, changeButtonStatus] = useState(false);
+
   const [candidate1Votes, changeVote1] = useState("--");
   const [candidate2Votes, changeVote2] = useState("--");
+  const [candidate3Votes, changeVote3] = useState("--");
+  const [candidate4Votes, changeVote4] = useState("--");
+  const [candidate5Votes, changeVote5] = useState("--");
+
   const [prompt, changePrompt] = useState("--");
 
   useEffect(() => {
@@ -19,6 +28,9 @@ const PollingStation = (props) => {
       });
       changeVote1(voteCount[0]);
       changeVote2(voteCount[1]);
+      changeVote3(voteCount[2]);
+      changeVote4(voteCount[3]);
+      changeVote5(voteCount[4]);
 
       // image stuff
 
@@ -32,6 +44,22 @@ const PollingStation = (props) => {
           name: localStorage.getItem("Candidate2"),
         })
       );
+      changeCandidate3Url(
+        await window.contract.getUrl({
+          name: localStorage.getItem("Candidate3"),
+        })
+      );
+      changeCandidate4Url(
+        await window.contract.getUrl({
+          name: localStorage.getItem("Candidate4"),
+        })
+      );
+      changeCandidate5Url(
+        await window.contract.getUrl({
+          name: localStorage.getItem("Candidate5"),
+        })
+      );
+      
 
       changePrompt(localStorage.getItem("prompt"));
 
@@ -67,6 +95,10 @@ const PollingStation = (props) => {
     });
     changeVote1(voteCount[0]);
     changeVote2(voteCount[1]);
+    changeVote3(voteCount[2]);
+    changeVote4(voteCount[3]);
+    changeVote5(voteCount[4]);
+    
     changeResultsDisplay(true);
   };
 
