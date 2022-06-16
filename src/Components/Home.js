@@ -11,6 +11,7 @@ const Home = (props) => {
       console.log(await window.contract.getAllPrompts());
     };
     getPrompts();
+
   }, []);
 
   return (

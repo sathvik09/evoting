@@ -16,7 +16,7 @@ import 'firebase/compat/firestore';
 
 const NavBar = ()=>{
     const signOut = ()=>{
-        console.log(prompt("over","out"));
+        localStorage.removeItem("voterId");
         firebase.auth().signOut()
         .then(()=>window.location.replace("/"))
       }

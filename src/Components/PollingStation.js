@@ -14,6 +14,7 @@ import firebase from '../../util/firebase'
 import { sha256 } from "js-sha256";
 import { async } from "regenerator-runtime";
 import { getDatabase, ref, child, push, update, onValue } from "firebase/database";
+import { auto } from "@popperjs/core";
 
 const PollingStation = ({voterId}) => {
   const [candidate1URL, changeCandidate1Url] = useState(LoadingCircles);
@@ -166,13 +167,43 @@ onValue(starCountRef, (snapshot) => {
   return (
     <Container>
       <Row>
-       <input placeholder="Enter password before voting" ref={inputVal} />
+        <Row>
+        <div className="" style={{
+        display:"flex",
+        margin:"auto",
+        width:"70%"
+      }}>
+          <p
+          
+          >Enter Password</p>
+        <input
+        placeholder="Enter password before voting" ref={inputVal} />
+        </div>
+        </Row>
+
        <CandidateCard candidateURL={candidate1URL} showresults={showresults} candidateVotes={candidate1Votes} buttonStatus={buttonStatus} addVote={addVote} index={0} />
        <CandidateCard candidateURL={candidate2URL} showresults={showresults} candidateVotes={candidate2Votes} buttonStatus={buttonStatus} addVote={addVote} index={1} />
        <CandidateCard candidateURL={candidate3URL} showresults={showresults} candidateVotes={candidate3Votes} buttonStatus={buttonStatus} addVote={addVote} index={2} />
        <CandidateCard candidateURL={candidate4URL} showresults={showresults} candidateVotes={candidate4Votes} buttonStatus={buttonStatus} addVote={addVote} index={3} /> 
        <CandidateCard candidateURL={candidate5URL} showresults={showresults} candidateVotes={candidate5Votes} buttonStatus={buttonStatus} addVote={addVote} index={4} />
       </Row>
+      <Row className='justify-content-center d-flex align-items-center'>
+          <div
+            style={{
+              margin:"5vw",
+              display: "flex",
+              justifyContent: "center",
+              backgroundColor: "#c4c4c4",
+              height: "5vh",
+              width:"20vw",
+              alignItems: "center",
+              padding: "1vw",
+              textAlign: "center",
+            }}
+          >
+            {prompt}
+          </div>
+        </Row>
     </Container>
   );
 };
@@ -181,20 +212,6 @@ export default PollingStation;
 
 
 /*
-<Row className='justify-content-center d-flex align-items-center'>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              backgroundColor: "#c4c4c4",
-              height: "20vh",
-              alignItems: "center",
-              padding: "2vw",
-              textAlign: "center",
-            }}
-          >
-            {prompt}
-          </div>
-        </Row>
+
 
 */

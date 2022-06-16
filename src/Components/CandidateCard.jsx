@@ -11,13 +11,13 @@ const CandidateCard = props=>{
               style={{
                 display: "flex",
                 justifyContent: "center",
-                padding: "3vw",
+                padding: 0,
               }}
             >
               <img
                 style={{
-                  height: "35vh",
-                  width: "20vw",
+                  height: "12vh",
+                  width: "12vw",
                 }}
                 src={props.candidateURL}
               ></img>
@@ -33,7 +33,6 @@ const CandidateCard = props=>{
                   display: "flex",
                   justifyContent: "center",
                   fontSize: "8vw",
-                  padding: "10px",
                   backgroundColor: "#c4c4c4",
                 }}
               >

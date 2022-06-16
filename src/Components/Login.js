@@ -21,6 +21,7 @@ const Login = props =>{
         event.preventDefault();
         console.log(inputUser.current.value);
         console.log(inputPass.current.value);
+        localStorage.setItem("voterId",voterId.current.value);
         firebase
         .auth()
         .signInWithEmailAndPassword(inputUser.current.value,inputPass.current.value)
