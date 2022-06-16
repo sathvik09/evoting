@@ -2,20 +2,19 @@
 import { initializeApp } from "firebase/app";
 import firebase from 'firebase/compat/app';
 import 'firebase/database';
-
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAsN2iJTVnU9Ewn6UX8s34HJtzdRlzTJpE",
-  authDomain: "votingapp-553ee.firebaseapp.com",
-  databaseURL: "https://votingapp-553ee-default-rtdb.firebaseio.com",
-  projectId: "votingapp-553ee",
-  storageBucket: "votingapp-553ee.appspot.com",
-  messagingSenderId: "1059065936044",
-  appId: "1:1059065936044:web:b23c432d4db112cba40709"
+  apiKey: "AIzaSyDdQsk-SNlJEwNBtor3rOtKYrP93wfH76U",
+  authDomain: "evoting-624e6.firebaseapp.com",
+  projectId: "evoting-624e6",
+  storageBucket: "evoting-624e6.appspot.com",
+  messagingSenderId: "308669282241",
+  appId: "1:308669282241:web:806512e69f31ef316fe140"
 };
+
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

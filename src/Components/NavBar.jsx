@@ -16,7 +16,7 @@ import 'firebase/compat/firestore';
 
 const NavBar = ()=>{
     const signOut = ()=>{
-        prompt("over","out")
+        console.log(prompt("over","out"));
         firebase.auth().signOut()
         .then(()=>window.location.replace("/"))
       }

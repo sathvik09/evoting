@@ -17,20 +17,22 @@ import "../css/Login.css"
 import firebase from '../../util/firebase'
 import { getDatabase, ref, set } from "firebase/database";
 
-const Login = ()=>{
-    const inputUser = useRef("");
-    const inputPass = useRef("");
-    const voterId = useRef("");
+const Register = (props)=>{
+  const [voterIdS,setVoterId] = useState("");
+  const inputUser = useRef("");
+  const inputPass = useRef("");
+  const voterId = useRef("");
     const onButtonClick = event => {
         // `current` points to the mounted text input element
         event.preventDefault();
-
+        
         const db = getDatabase();
         set(ref(db, 'users/' + voterId.current.value), {
           username: inputUser.current.value,
-          password: sha256(inputPass.current.value)
+          password: sha256(inputPass.current.value),
+          hasVoted:false
         });
-
+      
         firebase
         .auth()
         .createUserWithEmailAndPassword(inputUser.current.value,inputPass.current.value)
@@ -45,9 +47,9 @@ const Login = ()=>{
             //   setPasswordError(err.message);
             //   break;
           }
-        })
+       })
 
-        inputUser.current.value = "";
+       inputUser.current.value = "";
         inputPass.current.value = "";
       };
         
@@ -79,4 +81,4 @@ const Login = ()=>{
         );
 }
 
-export default Login;
+export default Register;

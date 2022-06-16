@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import LoadingCircles from "../assets/loadingcircles.svg";
+import CandidateCard from "./CandidateCard";
 
-const PollingStation = (props) => {
+
+// realtime db
+import "firebase/auth";
+import Database from "firebase/database"
+import 'firebase/compat/auth';
+import 'firebase/compat/messaging';
+import 'firebase/compat/firestore';
+import firebase from '../../util/firebase'
+import { getDatabase } from "firebase/database";
+import { ref as sRef } from 'firebase/storage';
+
+const PollingStation = ({voterId}) => {
   const [candidate1URL, changeCandidate1Url] = useState(LoadingCircles);
   const [candidate2URL, changeCandidate2Url] = useState(LoadingCircles);
   const [candidate3URL, changeCandidate3Url] = useState(LoadingCircles);
@@ -78,8 +90,9 @@ const PollingStation = (props) => {
   }, []);
 
   const addVote = async (index) => {
-    console.log(prompt("hello",""));
-    changeButtonStatus(true);
+   // changeButtonStatus(true);
+
+    const db = getDatabase();    
     await window.contract.addVote({
       prompt: localStorage.getItem("prompt"),
       index: index,
@@ -100,59 +113,28 @@ const PollingStation = (props) => {
     changeVote5(voteCount[4]);
     
     changeResultsDisplay(true);
+    localStorage.setItem("voterId",true);
+
   };
 
   return (
     <Container>
       <Row>
-        <Col className='jutify-content-center d-flex'>
-          <Container>
-            <Row style={{ marginTop: "5vh", backgroundColor: "#c4c4c4" }}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  padding: "3vw",
-                }}
-              >
-                <img
-                  style={{
-                    height: "35vh",
-                    width: "20vw",
-                  }}
-                  src={candidate1URL}
-                ></img>
-              </div>
-            </Row>
-            {showresults ? (
-              <Row
-                className='justify-content-center d-flex'
-                style={{ marginTop: "5vh" }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    fontSize: "8vw",
-                    padding: "10px",
-                    backgroundColor: "#c4c4c4",
-                  }}
-                >
-                  {candidate1Votes}
-                </div>
-              </Row>
-            ) : null}
-            <Row
-              style={{ marginTop: "5vh" }}
-              className='justify-content-center d-flex'
-            >
-              <Button disabled={buttonStatus} onClick={() => addVote(0)}>
-                Vote
-              </Button>
-            </Row>
-          </Container>
-        </Col>
-        <Col className='justify-content-center d-flex align-items-center'>
+       <CandidateCard candidateURL={candidate1URL} showresults={showresults} candidateVotes={candidate1Votes} buttonStatus={buttonStatus} addVote={addVote} index={0} />
+       <CandidateCard candidateURL={candidate2URL} showresults={showresults} candidateVotes={candidate2Votes} buttonStatus={buttonStatus} addVote={addVote} index={1} />
+       <CandidateCard candidateURL={candidate3URL} showresults={showresults} candidateVotes={candidate3Votes} buttonStatus={buttonStatus} addVote={addVote} index={2} />
+       <CandidateCard candidateURL={candidate4URL} showresults={showresults} candidateVotes={candidate4Votes} buttonStatus={buttonStatus} addVote={addVote} index={3} /> 
+       <CandidateCard candidateURL={candidate5URL} showresults={showresults} candidateVotes={candidate5Votes} buttonStatus={buttonStatus} addVote={addVote} index={4} />
+      </Row>
+    </Container>
+  );
+};
+
+export default PollingStation;
+
+
+/*
+<Row className='justify-content-center d-flex align-items-center'>
           <div
             style={{
               display: "flex",
@@ -166,57 +148,6 @@ const PollingStation = (props) => {
           >
             {prompt}
           </div>
-        </Col>
-        <Col className='jutify-content-center d-flex'>
-          <Container>
-            <Row style={{ marginTop: "5vh", backgroundColor: "#c4c4c4" }}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  padding: "3vw",
-                }}
-              >
-                <img
-                  style={{
-                    height: "35vh",
-                    width: "20vw",
-                  }}
-                  src={candidate2URL}
-                ></img>
-              </div>
-            </Row>
-            {showresults ? (
-              <Row
-                className='justify-content-center d-flex'
-                style={{ marginTop: "5vh" }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    fontSize: "8vw",
-                    padding: "10px",
-                    backgroundColor: "#c4c4c4",
-                  }}
-                >
-                  {candidate2Votes}
-                </div>
-              </Row>
-            ) : null}
-            <Row
-              style={{ marginTop: "5vh" }}
-              className='justify-content-center d-flex'
-            >
-              <Button disabled={buttonStatus} onClick={() => addVote(1)}>
-                Vote
-              </Button>
-            </Row>
-          </Container>
-        </Col>
-      </Row>
-    </Container>
-  );
-};
+        </Row>
 
-export default PollingStation;
+*/

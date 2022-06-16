@@ -29,6 +29,7 @@ import 'firebase/compat/firestore';
 
 export default function App() {
   const [user, setUser] = useState("");
+  const [voterId,setVoterId] = useState("");
 
   useEffect(()=>{
     firebase.auth().onAuthStateChanged(user=>{
@@ -64,11 +65,11 @@ export default function App() {
         <Home changeCandidates={changeCandidatesFunction} />
         </Route>
         <Route exact path='/register'>
-          <Register />
+          <Register setVoterId={setVoterId} voterIdS={voterId} />
         </Route>
         <Route exact path='/PollingStation'>
         <NavBar />
-          <PollingStation />
+          <PollingStation voterId={voterId} />
         </Route>
         <Route exact path='/NewPoll'>
         <NavBar />
